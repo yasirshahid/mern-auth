@@ -6,6 +6,17 @@ import User from "../models/userModel.js";
 // @route route POST /api/users/auth
 // @access public
 const authUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+
+  if (user && (await user.matchPassword(password))) {
+    generateToken(res, user._id);
+    res.status(201).json({ _id: user._id, name: user.name, email: user.email });
+  } else {
+    res.status(400);
+    throw new Error("Inalid email or password");
+  }
+
   res.status(200).json({ Message: "Auth User" });
 });
 
@@ -34,7 +45,11 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route route POST /api/users/logout
 // @access public
 const logoutUser = asyncHandler(async (req, res) => {
-  res.status(200).json({ Message: "Logout User" });
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+  res.status(200).json({ Message: "User Loged out" });
 });
 
 // @des Get user pofile
