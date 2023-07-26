@@ -89,7 +89,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("User Not Found");
   }
-  res.status(200).json({ Message: "Update User Profile" });
 });
 
 export {
