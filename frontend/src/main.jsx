@@ -1,21 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from "react-router-dom";
-import store from "./store.js";
-import { Provider } from "react-redux";
-import App from "./App.jsx";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import PrivateRoute from "./components/PrivateRoute.jsx";
-import HomeScreen from "./screens/HomeScreen.jsx";
+import "bootstrap/dist/css/bootstrap.min.css";
+import store from "./store";
+import { Provider } from "react-redux";
+import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen.jsx";
 import RegisterScreen from "./screens/RegisterScreen.jsx";
 import ProfileScreen from "./screens/ProfileScreen.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

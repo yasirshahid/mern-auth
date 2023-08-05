@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import FormContainer from "../components/FormContainer.jsx";
@@ -14,7 +13,6 @@ const ProfileScreen = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.auth);
@@ -28,7 +26,7 @@ const ProfileScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      toast.error("password do not match");
+      toast.error("Passwords do not match");
     } else {
       try {
         const res = await updateProfile({
@@ -37,9 +35,9 @@ const ProfileScreen = () => {
           email,
           password,
         }).unwrap();
+        console.log(res);
         dispatch(setCredentials(res));
         toast.success("Profile updated successfully");
-        navigate("/");
       } catch (err) {
         toast.error(err?.data?.message || err.error);
       }

@@ -1,16 +1,17 @@
-import React from "react";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
+import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { LinkContainer } from "react-router-bootstrap";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [logoutApiCall] = useLogoutMutation();
 
   const logoutHandler = async () => {
@@ -19,7 +20,7 @@ const Header = () => {
       dispatch(logout());
       navigate("/login");
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
